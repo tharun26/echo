@@ -4,7 +4,7 @@ class Endpoint < ApplicationRecord
     
     validates :verb, :inclusion => { :in => %w(GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE PATCH), 
         :message => "%{value} is not a valid HTTP Method" },  :if => :verb?
-    validates :path, format: { with: /\// ,  message: "Path attribute needs to start with /" }
+    validates :path, format: { with: /\A\// ,  message: "Path attribute needs to start with /" }
     validate :validate_endpoint_response
     validate :endpoint_present? , on: [:create, :update]
 
@@ -16,21 +16,25 @@ class Endpoint < ApplicationRecord
         begin
             return if response.nil?
             res = JSON.parse(response)
-            isValid = true
-            if !res["code"].is_a? Integer
-                if res["code"].present?
-                    errors.add(:response, 'response code must have value of data type integer') 
-                else
-                    errors.add(:response, 'response code is mandatory field') 
-                end
-            elsif res["headers"].present?
-                header_attributes = []
+
+            if  res["code"].present?
+                errors.add(:response, 'response code must have value of data type integer')  if !res["code"].is_a? Integer
+            else
+                errors.add(:response, "response code can't be blank") 
+            end
+
+            if res["headers"].present?
+                isValid = true
                 res["headers"].each do | key, value |
                     isValid = (value.instance_of? String)? true : false
-                    header_attributes.push(key) if !isValid
+                    errors.add(:response, "response headers attributes: #{key} must have value of data type string") if !isValid
                 end
-                header_attributes = header_attributes.join(",")
-                errors.add(:response, "response headers attributes: < #{header_attributes} > must have value of data type string") if !isValid                    
+            end
+
+            if res["body"].present?
+                isValid = true
+                isValid = (res["body"].instance_of? String)? true : false
+                errors.add(:response, "response body value must be of data type string") if !isValid    
             end
         rescue JSON::ParserError => e
             errors[response.to_s] << "is not valid JSON" 
@@ -40,8 +44,8 @@ class Endpoint < ApplicationRecord
     def endpoint_present?
         endpoint = Endpoint.find_by(user_id: user_id, verb: verb, path: path)
         if  endpoint && (id.present? ? id != endpoint[:id] : true)
-            errors[:verb] << "Endpoint already exist for the combination verb: #{verb} and path: #{path}"
-            errors[:path] << "Endpoint already exist for the combination path: #{path} and verb #{verb}"
+            errors.add(:verb, "Endpoint already exist for the combination verb: #{verb} and path: #{path}")
+            errors.add(:path, "Endpoint already exist for the combination path: #{path} and verb #{verb}")
         end
     end
 end

@@ -7,6 +7,7 @@ class EndpointsController < ApplicationController
 
    # GET /endpoints
   def index
+    print("Hi")
     endpoints = current_user.endpoints
     constructedResponse = construct_endpoints_response(endpoints)
     render json: { data: constructedResponse } and return

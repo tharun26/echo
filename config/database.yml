@@ -47,7 +47,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: endpoints
+  database: endpoints_test
   pool: 5
   username: tharun_gowrishankar
   password:
