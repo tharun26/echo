@@ -16,7 +16,6 @@ class Endpoint < ApplicationRecord
         begin
             return if response.nil?
             res = JSON.parse(response)
-
             if  res["code"].present?
                 errors.add(:response, 'response code must have value of data type integer')  if !res["code"].is_a? Integer
             else

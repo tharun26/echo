@@ -21,7 +21,6 @@ class User < ApplicationRecord
             rules.each do |message, regex|
                 errors.add( :password, message ) unless password.match( regex ) 
             end
-            print(password.length)
             errors.add( :password, "length must be between 6 to 20 characters" ) if !((6...20).include? password.length)
             return
         end

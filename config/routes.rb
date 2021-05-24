@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :endpoints , only: [:index, :create, :update, :destroy]
 
   match "*path", to: "echo#custom_action", via: :all
+  #match 'unmatch_route/not_found', to: 'unmatch_route#not_found', via: :all
 
 end

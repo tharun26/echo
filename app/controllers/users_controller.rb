@@ -1,7 +1,6 @@
-
-
 class UsersController < ApplicationController
     skip_before_action :authenticate_request
+
     def register
         @user = User.create(user_params)
         if @user.save

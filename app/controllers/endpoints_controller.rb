@@ -7,7 +7,6 @@ class EndpointsController < ApplicationController
 
    # GET /endpoints
   def index
-    print("Hi")
     endpoints = current_user.endpoints
     constructedResponse = construct_endpoints_response(endpoints)
     render json: { data: constructedResponse } and return
@@ -18,14 +17,13 @@ class EndpointsController < ApplicationController
     endpoint_params = get_endpoint_params params
     endpoint_params[:user_id] = current_user[:id]
     endpoint = Endpoint.new(endpoint_params)
-
     if endpoint.save
       response.headers['Location'] = "#{request.protocol}#{request.host_with_port}#{endpoint[:path]}"
       response_payload = {}
       response_payload[:data] = construct_endpoint_response(endpoint)
       render json: response_payload.to_json, status: :created
     else
-      render json: { "errors": [endpoint.errors]} , status: :bad_request
+      render json: { "errors": [endpoint.errors]} , status: :unprocessable_entity
     end
   end
 
@@ -33,13 +31,13 @@ class EndpointsController < ApplicationController
   def update
     endpoint_params = get_endpoint_params params
     endpoint = get_endpoint_by_id
-
+    
     if endpoint.update(endpoint_params)
       response_payload = {}
       response_payload[:data] = construct_endpoint_response(endpoint)
       render json: response_payload, status: :ok
     else
-      render json: { "errors": [endpoint.errors]}, status: :not_found
+      render json: { "errors": [endpoint.errors]}, status: :unprocessable_entity
     end
     
   end
