@@ -40,8 +40,8 @@ class Endpoint < ApplicationRecord
     def endpoint_present?
         endpoint = Endpoint.find_by(user_id: user_id, verb: verb, path: path)
         if  endpoint && (id.present? ? id != endpoint[:id] : true)
-            errors[:verb] << "Endpoint already exist for this verb: #{verb} and path: #{path}"
-            errors[:path] << "Endpoint already exist for this path: #{path} and verb #{verb}"
+            errors[:verb] << "Endpoint already exist for the combination verb: #{verb} and path: #{path}"
+            errors[:path] << "Endpoint already exist for the combination path: #{path} and verb #{verb}"
         end
     end
 end

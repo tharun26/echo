@@ -23,8 +23,6 @@ class EchoController < ApplicationController
 
     private
       def get_end_point (verb, path)
-        # endpoints = current_user.endpoints
-        # endpoints.find_by(verb: verb, path: path)
         current_user.endpoints.find_by(verb: verb, path: path)
       end
   end

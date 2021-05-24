@@ -24,7 +24,7 @@ class EndpointsController < ApplicationController
       response_payload[:data] = construct_endpoint_response(endpoint)
       render json: response_payload.to_json, status: :created
     else
-      render json: endpoint.errors, status: :bad_request
+      render json: { "errors": [endpoint.errors]} , status: :bad_request
     end
   end
 
@@ -38,7 +38,7 @@ class EndpointsController < ApplicationController
       response_payload[:data] = construct_endpoint_response(endpoint)
       render json: response_payload, status: :ok
     else
-      render json: endpoint.errors, status: :not_found
+      render json: { "errors": [endpoint.errors]}, status: :not_found
     end
     
   end
@@ -49,7 +49,7 @@ class EndpointsController < ApplicationController
     if endpoint.destroy
       render json: {} , status: :no_content
     else
-      render json: endpoint.errors, status: :not_found
+      render json: { "errors": [endpoint.errors]}, status: :not_found
     end
   end
 

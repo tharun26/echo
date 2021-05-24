@@ -28,5 +28,9 @@ module EndpointsHelper
           :response => endpoint_params.dig(:data, :attributes, :response)?  endpoint_params.dig(:data, :attributes, :response).to_json : nil
         }
       end
+
+      def get_error_response (error)
+        { "errors": error}
+      end
   end
   
