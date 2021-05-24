@@ -9,7 +9,8 @@ class User < ApplicationRecord
 
 
     private
-
+    
+    # Validates password
     def password_requirements
         if password.present?
             rules = {

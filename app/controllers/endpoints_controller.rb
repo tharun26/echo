@@ -5,7 +5,7 @@ class EndpointsController < ApplicationController
 
     attr_reader :current_user
 
-   # GET /endpoints
+  # GET /endpoints
   def index
     endpoints = current_user.endpoints
     constructedResponse = construct_endpoints_response(endpoints)
@@ -58,6 +58,7 @@ class EndpointsController < ApplicationController
       Endpoint.find_by_id(params[:id])
     end
 
+    # Validates if endpoint does not exist
     def isEndpointPresent?
       endpoint = Endpoint.find_by_id(params[:id])
       if endpoint.nil?

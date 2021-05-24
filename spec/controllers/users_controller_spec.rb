@@ -4,10 +4,6 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
     
     describe "#user/register endpoint" do
-        before :each do 
-            #allow(controller).to receive(:authenticate_request?).and_return(true)
-        end 
-
         it 'should create a user on POST request and response is 201' do
             expect {
             post :register, params: {  name: 'sample', email: 'sample@gmail.com', password: 'Password@123' }

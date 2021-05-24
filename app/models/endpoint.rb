@@ -12,10 +12,12 @@ class Endpoint < ApplicationRecord
 
     private
 
+    # Validates users response provided by user
     def validate_endpoint_response
         begin
             return if response.nil?
             res = JSON.parse(response)
+            
             if  res["code"].present?
                 errors.add(:response, 'response code must have value of data type integer')  if !res["code"].is_a? Integer
             else
@@ -40,6 +42,7 @@ class Endpoint < ApplicationRecord
         end
     end
 
+    # Checks if duplicate verb,path combination endpoint exist for the user
     def endpoint_present?
         endpoint = Endpoint.find_by(user_id: user_id, verb: verb, path: path)
         if  endpoint && (id.present? ? id != endpoint[:id] : true)

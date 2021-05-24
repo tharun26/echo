@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe EndpointsController, type: :controller do

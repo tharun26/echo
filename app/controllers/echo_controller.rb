@@ -4,7 +4,8 @@ class EchoController < ApplicationController
 
     attr_reader :current_user
 
-    def custom_action
+    # Action method for handling all request which has no routes on route file 
+    def echo_action
       endpoint = get_end_point request.method, request.path
       if endpoint
         endpoint_response = prepare_response endpoint

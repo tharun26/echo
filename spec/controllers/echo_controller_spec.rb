@@ -38,10 +38,11 @@ RSpec.describe EchoController, type: :request do
             @controller = old_controller
         end
 
-        it "should respond if user created endpoint exist for verb POST and path /greeting/1" do
+        it "should respond with mock endpoing error code and body if user created endpoint exist for verb POST and path /greeting/1" do
             headers["Authorization"] = @token
             post "/greeting/1", params: { url: "http://localhost:3000/"}.to_json, headers: headers
             expect(response.status).to eq(201)
+            expect(response.body).to eq("{ \"message\": \"Hello, world\" }")
         end
 
         it "should respond 404 if requested endpoint does not exist" do

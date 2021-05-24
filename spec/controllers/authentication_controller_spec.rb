@@ -5,12 +5,13 @@ RSpec.describe AuthenticationController, type: :controller do
     
     describe "#authenticate endpoint" do
         before :each do 
-            #allow(controller).to receive(:authenticate_request?).and_return(true)
             @user = User.new(name:"sample", email: "sample@gmail.com", password: "PasswordIsStrong1@", id: 1).save
+            auth = Base64.strict_encode64("sample@gmail.com"+":"+"PasswordIsStrong1@")
+            @auth_token ="Basic "+ auth
         end 
 
         it 'should authenticate user if already avaiable' do
-            request.headers["Authorization"] = "Basic c2FtcGxlQGdtYWlsLmNvbTpQYXNzd29yZElzU3Ryb25nMUA="
+            request.headers["Authorization"] = @auth_token
             post :authenticate, params: { }
             expect(response.status).to eq(200) 
             body = JSON.parse(response.body)
