@@ -1,24 +1,66 @@
-# README
+# Echo Application
+## Introduction
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Echo is a application which allows users to create endpoints for themself and  let's them hit the corresponding endpoints to get the response they provided while creating.
 
-Things you may want to cover:
+### Tech
 
-* Ruby version
+Echo uses a number of open source projects to work as expected:
 
-* System dependencies
+- [Ruby on Rails] - Server-side web application framework
+- [POSTGRESQL] - Relational database management system (RDBMS)
 
-* Configuration
+##### Prerequisites
 
-* Database creation
+The setups steps expect following tools installed on the system.
 
-* Database initialization
+- Ruby [2.6.3]
+- Rails [6.1.3.2]
+- Postgresql [13.1]
 
-* How to run the test suite
+##### 1. Commands to execute
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+```
 
-* Deployment instructions
+##### 2. Create database.yml file
 
-* ...
+Copy the sample database.yml file and edit the database configuration as required.
+
+```bash
+cp config/database.yml.sample config/database.yml
+```
+
+##### 3. Create and setup the database
+
+Run the following commands to create and setup the database.
+
+```ruby
+bundle exec rake db:create
+bundle exec rake db:setup
+```
+
+##### 4. Start the Rails server
+
+You can start the rails server using the command given below.
+
+```ruby
+bundle exec rails s
+```
+
+And now you can start hitting http://localhost:3000 using postman collection provided
+along with application.
+PostMan Collection: https://www.getpostman.com/collections/dfd33b437f447f66ec8f
+##### 
+
+
+
+#### Unit Testing
+
+##### Following commnds needs to be executed to run Unit test cases 
+
+```sh
+bin/rails db:environment:set RAILS_ENV=test
+bundle exec rspec
+```
