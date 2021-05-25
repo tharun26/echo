@@ -9,7 +9,7 @@ Echo uses a number of open source projects to work as expected:
 
 - [Ruby on Rails] - Server-side web application framework
 - [POSTGRESQL] - Relational database management system (RDBMS)
-
+- [Redis] - In Memeory Cache server 
 ##### Prerequisites
 
 The setups steps expect following tools installed on the system.
@@ -17,6 +17,7 @@ The setups steps expect following tools installed on the system.
 - Ruby [2.6.3]
 - Rails [6.1.3.2]
 - Postgresql [13.1]
+- Redis [6.2.3]
 
 ##### 1. Commands to execute
 
@@ -35,13 +36,21 @@ cp config/database.yml.sample config/database.yml
 ##### 3. Create and setup the database
 
 Run the following commands to create and setup the database.
+Run postgres server using postgresapp [Version 2.4.1 (100)]
 
 ```ruby
 bundle exec rake db:create
 bundle exec rake db:setup
 ```
 
-##### 4. Start the Rails server
+##### 4. Install redis server and run redis-server
+
+```bash
+brew install redis
+redis-server /usr/local/etc/redis.conf
+```
+
+##### 5. Start the Rails server
 
 You can start the rails server using the command given below.
 
@@ -53,7 +62,6 @@ And now you can start hitting http://localhost:3000 using postman collection pro
 along with application.
 PostMan Collection: https://www.getpostman.com/collections/dfd33b437f447f66ec8f
 ##### 
-
 
 
 #### Unit Testing

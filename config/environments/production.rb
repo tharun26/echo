@@ -50,6 +50,9 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
+  config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
+
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 

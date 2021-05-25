@@ -4,7 +4,7 @@ include ActionController::HttpAuthentication::Basic::ControllerMethods
 class ApplicationController < ActionController::API
     before_action :authenticate_request
     
-    attr_reader :current_user
+    attr_reader :current_user 
 
     private
     

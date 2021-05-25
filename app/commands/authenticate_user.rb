@@ -15,7 +15,15 @@ class AuthenticateUser
     attr_accessor :email, :password
     
     def user
-        user = User.find_by_email(email)
+        #retrieve the user id using email as key from Redis server
+        #avoids database call to find the user based on email using cache
+        cached_user_id = Redis.new.get email
+        if cached_user_id.present?
+            user = User.find_by_id(cached_user_id)
+        else
+            user = User.find_by_email(email)
+        end
+
         return user if user && user.authenticate(password)
 
         errors.add :user_authentication, 'invalid credentials'

@@ -1,6 +1,5 @@
 class AuthenticationController < ApplicationController
     skip_before_action :authenticate_request
-
     def authenticate
         authenticate_with_http_basic do |email, password|
             command = AuthenticateUser.call(email, password)

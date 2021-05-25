@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   
   resources :endpoints , only: [:index, :create, :update, :destroy]
 
-  match "*path", to: "echo#echo_action", via: :all
-  #match 'unmatch_route/not_found', to: 'unmatch_route#not_found', via: :all
+  #match "sample/register/*path", to: redirect('/404'), via: :all
+  #match "user/(*url)", to: redirect('/404'), via: :all
 
+  match "*path", to: "echo#echo_action", via: :all
 end
