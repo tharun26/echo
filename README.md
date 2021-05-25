@@ -23,6 +23,7 @@ The setups steps expect following tools installed on the system.
 
 ```bash
 bundle install
+yarn install
 ```
 
 ##### 2. Create database.yml file
@@ -39,8 +40,10 @@ Run the following commands to create and setup the database.
 Run postgres server using postgresapp [Version 2.4.1 (100)]
 
 ```ruby
+createuser -s db_user_name
 bundle exec rake db:create
 bundle exec rake db:setup
+bundle exec rake db:migrate
 ```
 
 ##### 4. Install redis server and run redis-server
