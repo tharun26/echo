@@ -42,7 +42,6 @@ Run postgres server using postgresapp [Version 2.4.1 (100)]
 ```ruby
 createuser -s db_user_name
 bundle exec rake db:create
-bundle exec rake db:setup
 bundle exec rake db:migrate
 ```
 

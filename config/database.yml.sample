@@ -49,7 +49,7 @@ test:
   encoding: unicode
   database: endpoints_test
   pool: 5
-  username: tharun_gowrishankar
+  username: db_user_name
   password:
   timeout: 5000# PostgreSQL. Versions 8.2 and up are supported.
 #
@@ -72,7 +72,7 @@ development:
   encoding: unicode
   database: endpoints
   pool: 5
-  username: tharun_gowrishankar_new
+  username: db_user_name
   password: 
   timeout: 5000
  
@@ -102,6 +102,6 @@ test:
   encoding: unicode
   database: endpoints_test
   pool: 5
-  username: tharun_gowrishankar_new
+  username: db_user_name
   password:
   timeout: 5000
